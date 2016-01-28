@@ -28,13 +28,8 @@ def sum_to_n? arr, n
     return false
   else
     result = false
-    for a in arr
-      for b in arr
-        if a != b && a+b == n
-          result = true
-          return result
-        end
-      end
+    arr.combination(2).each do |comb| 
+       result = true if sum(comb) == n
     end
     result
   end
@@ -43,19 +38,39 @@ end
 # Part 2
 
 def hello(name)
-  # YOUR CODE HERE
+  "Hello, "<<name
 end
 
 def starts_with_consonant? s
-  # YOUR CODE HERE
+  (s =~ /^[a-zA-Z]/) && (s =~ /^[^AOEIU].*/i)
 end
 
 def binary_multiple_of_4? s
-  # YOUR CODE HERE
+  if (s == '') 
+    return false
+  end
+  if (s =~ /^[01]*$/) && (s.to_i(2) % 4 == 0)
+    return true
+  else
+    return false
+  end
 end
 
 # Part 3
 
 class BookInStock
-# YOUR CODE HERE
+  
+  attr_accessor :isbn, :price
+  
+  def initialize(isbn, price)
+    if isbn.empty? || price <= 0
+       raise ArgumentError
+    end
+    @isbn = isbn
+    @price = price
+  end
+  
+  def price_as_string
+    "%s%.2f" % ['$', @price]
+  end
 end
